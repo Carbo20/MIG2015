@@ -19,3 +19,11 @@
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
+
+# We avoid this to have the lightest git as possible
+*.mat
+*.png
+*.jpg
+*.fbx
+*.targa
+*.mp3
