@@ -141,23 +141,28 @@ public class MicrophoneHandle : MonoBehaviour {
 		
 		// Once enough successful blows have occured over the previous frames (requiredBlowTime), the blow is triggered.
 		// This example says "blowing", or "not blowing", and also blows up a sphere.
-		Debug.Log ("DB VALUE : " + dbValue);
 		if (rmsValue > 0.01) {
-			if (blowingTime > requiedBlowTime && pitchValue > 2000 ) {
+			if (blowingTime > requiedBlowTime && pitchValue > 1200) {
 				blowDisplay.GetComponent<Text> ().text = "Blowing";
 				GameObject.FindGameObjectWithTag ("Meter").GetComponent<Renderer> ().material = Resources.Load<Material> ("Materials/Blue");
+				if(!GameMgr.Instance.IsBlowing)
+				{
+					GameMgr.Instance.OnBlow();
+				}
 				//GameObject.FindGameObjectWithTag("Meter").transform.localScale*= 1.012f+(pitchValue/60000);
-			} else if (blowingTime <= limitTalkTime && pitchValue < 1500) {
+			} else if (blowingTime <= limitTalkTime && pitchValue < 1150) {
 				blowDisplay.GetComponent<Text> ().text = "Blowing";
 				GameObject.FindGameObjectWithTag ("Meter").GetComponent<Renderer> ().material = Resources.Load<Material> ("Materials/Red");
+				GameMgr.Instance.OnTalk();
 				//GameObject.FindGameObjectWithTag("Meter").transform.localScale*= 1.012f+(pitchValue/60000);
 			} 
 			else if(blowingTime <= limitTapeTime && dbValue > -5){
 				GameObject.FindGameObjectWithTag ("Meter").GetComponent<Renderer> ().material = Resources.Load<Material> ("Materials/Green");
+				GameMgr.Instance.OnTape();
 			}
 			else {
 				blowDisplay.GetComponent<Text> ().text = "Not blowing";
-				GameObject.FindGameObjectWithTag ("Meter").transform.localScale *= 0.999f;
+				GameObject.FindGameObjectWithTag ("Meter").GetComponent<Renderer> ().material = null;
 			}
 		}
 	}
