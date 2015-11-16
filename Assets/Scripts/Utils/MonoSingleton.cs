@@ -1,16 +1,28 @@
-﻿using UnityEngine;
+﻿/*
+using UnityEngine;
 using System.Collections;
 
 public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
+	#region Fields
+	static private T _instance;
+	#endregion
 
-	// Use this for initialization
-	void Start () {
-	
+	#region Properties
+
+	public static T Instance
+	{
+		get
+		{
+			if (_instance == null)
+			{
+				_instance = new T();
+			}
+			return _instance;
+		}
+		set { _instance = value; }
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+	#endregion
 }
+*/
