@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float vitesse;
     private float ratiovitesse;
     private Vector3 moveDirection = Vector3.zero;
+    private GameObject candleCloser;
 
     public void Update()
 	{
@@ -20,5 +21,20 @@ public class PlayerController : MonoBehaviour
 			_characterController.Move(moveDirection);
             
 		}
+
+        
 	}
+
+    public void newCandle(GameObject c)
+    {
+        candleCloser = c;
+    }
+
+    public void aCandle()
+    {
+        if (candleCloser != null)
+        {
+            //appeller sur candleCloser la fonction qui permet de l'eteindre
+        }
+    }
 }
