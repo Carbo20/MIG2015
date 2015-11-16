@@ -22,8 +22,14 @@ sysinfo.txt
 
 # We avoid this to have the lightest git as possible
 *.mat
+*.mat.meta
 *.png
+*.png.meta
 *.jpg
+*.jpg.meta
 *.fbx
+*.fbx.meta
 *.targa
+*.targa.meta
 *.mp3
+*.mp3.meta
