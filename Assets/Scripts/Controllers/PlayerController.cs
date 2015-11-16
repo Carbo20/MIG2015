@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
             moveDirection *= ratiovitesse;
 			_characterController.Move(moveDirection);
 
-            lookDirection = new Vector3(Input.GetAxis("Horizontal2"), 0f, Input.GetAxis("Vertical2"));
+            lookDirection = new Vector3(-1*Input.GetAxis("Horizontal2"), 0f, Input.GetAxis("Vertical2"));
             // transform.LookAt(lookDirection);
             if (lookDirection.x > 0 && lookDirection.z == 0) {transform.rotation= Quaternion.Euler(0f, 0f, 0f); }
             if (lookDirection.x > 0 && lookDirection.z > 0) { transform.rotation = Quaternion.Euler(0f, 45, 0f); }
