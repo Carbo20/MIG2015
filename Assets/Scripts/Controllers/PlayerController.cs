@@ -3,12 +3,22 @@
 public class PlayerController : MonoBehaviour
 {
 	[SerializeField] private CharacterController _characterController;
+    public float invertx;
+    public float inverty;
+    public float vitesse;
+    private float ratiovitesse;
+    private Vector3 moveDirection = Vector3.zero;
 
-	public void Update()
+    public void Update()
 	{
-		if (_characterController)
+        ratiovitesse = (float)(vitesse / 100);
+
+        if (_characterController)
 		{
-			_characterController.Move(new Vector3(Input.GetAxis("Horizontal"), 0f, -Input.GetAxis("Vertical")));
+            moveDirection = new Vector3((invertx) * Input.GetAxis("Horizontal"), 0f,(inverty) * Input.GetAxis("Vertical"));
+            moveDirection *= ratiovitesse;
+			_characterController.Move(moveDirection);
+            
 		}
 	}
 }
