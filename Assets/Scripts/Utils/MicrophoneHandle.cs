@@ -150,7 +150,7 @@ public class MicrophoneHandle : MonoBehaviour {
 					GameMgr.Instance.OnBlow();
 				}
 				//GameObject.FindGameObjectWithTag("Meter").transform.localScale*= 1.012f+(pitchValue/60000);
-			} else if (blowingTime <= limitTalkTime && pitchValue < 1150) {
+			} else if (blowingTime <= limitTalkTime && pitchValue < 1200) {
 				blowDisplay.GetComponent<Text> ().text = "Blowing";
 				GameObject.FindGameObjectWithTag ("Meter").GetComponent<Renderer> ().material = Resources.Load<Material> ("Materials/Red");
 				GameMgr.Instance.OnTalk();
