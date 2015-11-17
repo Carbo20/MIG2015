@@ -26,45 +26,23 @@ public class PlayerController : MonoBehaviour
 
 		if (_characterController)
 		{
-			moveDirection = new Vector3((invertx)*Input.GetAxis("Horizontal"), 0f, (inverty)*Input.GetAxis("Vertical"));
-			moveDirection *= ratiovitesse;
+            moveDirection = new Vector3((invertx) * Input.GetAxis("Horizontal"), 0f,(inverty) * Input.GetAxis("Vertical"));
+            moveDirection *= ratiovitesse;
+            if (moveDirection.x > 0 && moveDirection.x != 0) { flip(-1); }
+            else { if (moveDirection.x != 0) { flip(1); } }
 			_characterController.Move(moveDirection);
 
-			lookDirection = new Vector3(-1*Input.GetAxis("Horizontal2"), 0f, Input.GetAxis("Vertical2"));
-			// transform.LookAt(lookDirection);
-			if (lookDirection.x > 0 && lookDirection.z == 0)
-			{
-				transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-			}
-			if (lookDirection.x > 0 && lookDirection.z > 0)
-			{
-				transform.rotation = Quaternion.Euler(0f, 45, 0f);
-			}
-			if (lookDirection.x == 0 && lookDirection.z > 0)
-			{
-				transform.rotation = Quaternion.Euler(0f, 90, 0f);
-			}
-			if (lookDirection.x < 0 && lookDirection.z > 0)
-			{
-				transform.rotation = Quaternion.Euler(0f, 135, 0f);
-			}
-			if (lookDirection.x < 0 && lookDirection.z == 0)
-			{
-				transform.rotation = Quaternion.Euler(0f, 180, 0f);
-			}
-			if (lookDirection.x < 0 && lookDirection.z < 0)
-			{
-				transform.rotation = Quaternion.Euler(0f, 225, 0f);
-			}
-			if (lookDirection.x == 0 && lookDirection.z < 0)
-			{
-				transform.rotation = Quaternion.Euler(0f, 270, 0f);
-			}
-			if (lookDirection.x > 0 && lookDirection.z < 0)
-			{
-				transform.rotation = Quaternion.Euler(0f, 315, 0f);
-			}
+            lookDirection = new Vector3(-1*Input.GetAxis("Horizontal2"), 0f, Input.GetAxis("Vertical2"));
 
+            // transform.LookAt(lookDirection);
+            if (lookDirection.x > 0 && lookDirection.z == 0) {transform.rotation= Quaternion.Euler(0f, 0f, 0f); }
+            if (lookDirection.x > 0 && lookDirection.z > 0) { transform.rotation = Quaternion.Euler(0f, 45, 0f); }
+            if (lookDirection.x == 0 && lookDirection.z > 0) { transform.rotation = Quaternion.Euler(0f, 90, 0f); }
+            if (lookDirection.x < 0 && lookDirection.z > 0) { transform.rotation = Quaternion.Euler(0f, 135, 0f); }
+            if (lookDirection.x < 0 && lookDirection.z == 0) { transform.rotation = Quaternion.Euler(0f, 180, 0f); }
+            if (lookDirection.x < 0 && lookDirection.z < 0) { transform.rotation = Quaternion.Euler(0f, 225, 0f); }
+            if (lookDirection.x == 0 && lookDirection.z < 0) { transform.rotation = Quaternion.Euler(0f, 270, 0f); }
+            if (lookDirection.x > 0 && lookDirection.z < 0) { transform.rotation = Quaternion.Euler(0f, 315, 0f); }
 
 			if (_spriteTransform)
 			{
@@ -110,6 +88,11 @@ public class PlayerController : MonoBehaviour
 
 		emitter.SetParticles(particleList.ToArray(), particleList.Count);
 	}
+
+    public void flip(int a)
+    {
+       transform.localScale = new Vector3(a,1,1);
+    }
 
 	public void AddDamage(int damage)
 	{
