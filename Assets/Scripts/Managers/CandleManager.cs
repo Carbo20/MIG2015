@@ -21,7 +21,9 @@ public class CandleManager : MonoBehaviour {
 	
 		if (isBlowing) 
 		{
-			
+			if(GetComponentInChildren<ParticleSystem>().isStopped){
+			GetComponentInChildren<ParticleSystem>().Play();
+			}
 			Light light = GetComponentInChildren<Light> ();
 			if(deltaTime < candleMaxIntensity) {
 				deltaTime += Time.deltaTime;

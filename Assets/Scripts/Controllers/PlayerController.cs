@@ -12,13 +12,15 @@ public class PlayerController : MonoBehaviour
 
 	private bool _playerRecovery = false;
 
-	public float invertx;
-	public float inverty;
-	public float vitesse;
-	private float ratiovitesse;
-	private Vector3 moveDirection = Vector3.zero;
-	private Vector3 lookDirection = Vector3.zero;
-	public GameObject vision;
+
+    public float invertx;
+    public float inverty;
+    public float vitesse;
+    private float ratiovitesse;
+    private Vector3 moveDirection = Vector3.zero;
+    private Vector3 lookDirection = Vector3.zero;
+    public GameObject vision;
+	public SpriteRenderer sprite;
 
 	public void Update()
 	{
@@ -50,6 +52,8 @@ public class PlayerController : MonoBehaviour
 			{
 				_spriteTransform.rotation = Quaternion.identity;
 			}
+			sprite.transform.LookAt(Camera.main.transform.position);
+        }
 
 			GameObject fogGO = GameObject.FindGameObjectWithTag("Fog");
 
@@ -73,7 +77,6 @@ public class PlayerController : MonoBehaviour
 				}
 			}
 		}
-	}
 
 	public void OnBlow()
 	{

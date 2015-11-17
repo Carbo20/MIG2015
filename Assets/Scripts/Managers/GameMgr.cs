@@ -10,6 +10,7 @@ public class GameMgr : MonoSingleton<GameMgr>
 	#region Properties
 
 	private bool isBlowing;
+	private bool isTalking;
 
 	#endregion
 
@@ -48,6 +49,11 @@ public class GameMgr : MonoSingleton<GameMgr>
 
 	public void OnTalk()
 	{
+		isTalking = true;
+		if(GameObject.FindGameObjectWithTag("Reaper") != null){
+			//GameObject.FindGameObjectWithTag("Reaper");
+		}
+		isTalking = false;
 	}
 
 	public void OnTape()
@@ -72,6 +78,12 @@ public class GameMgr : MonoSingleton<GameMgr>
 	{
 		get{ return isBlowing;}
 		set{ isBlowing = value;}
+	}
+
+	public bool IsTalking
+	{
+		get{ return isTalking;}
+		set{ isTalking = value;}
 	}
 
 	#endregion
