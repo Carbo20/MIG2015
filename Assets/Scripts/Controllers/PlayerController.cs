@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     private float ratiovitesse;
     private Vector3 moveDirection = Vector3.zero;
     private Vector3 lookDirection = Vector3.zero;
-    private GameObject candleCloser;
+    public GameObject vision;
 
     public void Update()
 	{
@@ -39,16 +39,4 @@ public class PlayerController : MonoBehaviour
         
 	}
 
-    public void newCandle(GameObject c)
-    {
-        candleCloser = c;
-    }
-
-    public void aCandle()
-    {
-        if (candleCloser != null)
-        {
-            //appeller sur candleCloser la fonction qui permet de l'eteindre
-        }
-    }
 }

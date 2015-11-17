@@ -28,12 +28,13 @@ public class GameMgr : MonoSingleton<GameMgr>
 	{
 		isBlowing = true;
 		foreach (GameObject candle in GameObject.FindGameObjectsWithTag("Candle")) {
-			if(true) //[TODO] Put the hitbox condition with the player and the candle here !!!
+			Debug.Log(candle.transform.parent.GetComponent<CandleManager>().IsTrigger);
+			if(candle.transform.parent.GetComponent<CandleManager>().IsTrigger && !candle.transform.parent.GetComponent<CandleManager>().LightOn) //[TODO] Put the hitbox condition with the player and the candle here !!!
 			{
-				candle.GetComponent<CandleManager>().onBlow();
+				candle.transform.parent.GetComponent<CandleManager>().onBlow();
 			}
 		}
-		//isBlowing = false;
+		isBlowing = false;
 	}
 
 	public void OnTalk()

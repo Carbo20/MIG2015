@@ -8,6 +8,8 @@ public class CandleManager : MonoBehaviour {
 	private bool isBlowing;
 	private float deltaTime;
 	
+	private bool isTrigger = false;
+	private bool lightOn = false;
 	// Use this for initialization
 	void Start () {
 		isBlowing = false;
@@ -30,6 +32,7 @@ public class CandleManager : MonoBehaviour {
 			else{
 				isBlowing = false;
 				deltaTime = 0f;
+				lightOn = true;
 			}
 		}
 
@@ -40,4 +43,14 @@ public class CandleManager : MonoBehaviour {
 		isBlowing = true;
 	}
 
+	
+	public bool IsTrigger{
+		get{return isTrigger;}
+		set{ isTrigger = value;}
+	}
+
+	public bool LightOn{
+		get{ return lightOn;}
+		set{ lightOn = value;}
+	}
 }
