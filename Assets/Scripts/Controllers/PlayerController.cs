@@ -27,8 +27,10 @@ public class PlayerController : MonoBehaviour
 		{
             moveDirection = new Vector3((invertx) * Input.GetAxis("Horizontal"), 0f,(inverty) * Input.GetAxis("Vertical"));
             moveDirection *= ratiovitesse;
-            if (moveDirection.x > 0 && moveDirection.x != 0) { flip(-1); }
-            else { if (moveDirection.x != 0) { flip(1); } }
+
+            if (moveDirection.x > 0) { flip(-1f); }
+            else { if (moveDirection.x != 0) { flip(1f); } }
+
 			_characterController.Move(moveDirection);
 
             lookDirection = new Vector3(-1*Input.GetAxis("Horizontal2"), 0f, Input.GetAxis("Vertical2"));
@@ -53,9 +55,9 @@ public class PlayerController : MonoBehaviour
         
 	}
 
-    public void flip(int a)
+    public void flip(float direction)
     {
-       transform.localScale = new Vector3(a,1,1);
+        _spriteTransform.localScale = new Vector3(Mathf.Abs(_spriteTransform.localScale.x)*direction, _spriteTransform.localScale.y, _spriteTransform.localScale.z);
     }
 
 	public void AddDamage(int damage)
