@@ -27,8 +27,6 @@ public class CandleManager : MonoBehaviour {
 			Light light = GetComponentInChildren<Light> ();
 			if(deltaTime < candleMaxIntensity) {
 				deltaTime += Time.deltaTime;
-				Debug.Log(deltaTime);
-				Debug.Log(light.intensity);
 				light.intensity = deltaTime;
 			}
 			else{

@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< 9aeb96cfc93bd6eb36fb4a43e55f7ca56afef37b
 guid: 46e88802da50669439f0a9037296f401
 folderAsset: yes
 timeCreated: 1447771039
+=======
+guid: e879561f5d80a2c499ce7445e959464d
+folderAsset: yes
+timeCreated: 1447786654
+>>>>>>> Tuto work in progress
 licenseType: Free
 DefaultImporter:
   userData: 
