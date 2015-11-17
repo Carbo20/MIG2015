@@ -49,7 +49,13 @@ public class PlayerController : MonoBehaviour
 				_spriteTransform.rotation = Quaternion.identity;
 			}
 
-			ParticleSystem emitter = FindObjectOfType<ParticleSystem>();
+			GameObject fogGO = GameObject.FindGameObjectWithTag("Fog");
+
+			if (!fogGO) return;
+
+			ParticleSystem emitter = fogGO.GetComponent<ParticleSystem>();
+
+			if (!emitter) return;
 
 			ParticleSystem.Particle[] particles = new ParticleSystem.Particle[emitter.maxParticles];
 			emitter.GetComponent<ParticleSystem>().GetParticles(particles);
@@ -69,14 +75,18 @@ public class PlayerController : MonoBehaviour
 
 	public void OnBlow()
 	{
-		ParticleSystem emitter = FindObjectOfType<ParticleSystem>();
+		GameObject fogGO = GameObject.FindGameObjectWithTag("Fog");
+
+		if (!fogGO) return;
+
+		ParticleSystem emitter = fogGO.GetComponent<ParticleSystem>();
 
 		if (!emitter) return;
 
 		ParticleSystem.Particle[] particles = new ParticleSystem.Particle[emitter.maxParticles];
 		emitter.GetComponent<ParticleSystem>().GetParticles(particles);
 
-		CapsuleCollider collider = GetComponent<CapsuleCollider>();
+		SphereCollider collider = vision.GetComponent<SphereCollider>();
 
 		List<ParticleSystem.Particle> particleList = new List<ParticleSystem.Particle>();
 
