@@ -31,8 +31,8 @@ public class PlayerController : MonoBehaviour
             moveDirection = new Vector3((invertx) * Input.GetAxis("Horizontal"), 0f,(inverty) * Input.GetAxis("Vertical"));
             moveDirection *= ratiovitesse;
 
-            if (moveDirection.x > 0) { flip(-1f); }
-            else { if (moveDirection.x != 0) { flip(1f); } }
+            if (moveDirection.x > 0 && moveDirection.x != 0) { flip(1); }
+            else { if (moveDirection.x != 0) { flip(-1); } }
 
 			_characterController.Move(moveDirection);
 
