@@ -1,8 +1,16 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
 	[SerializeField] private CharacterController _characterController;
+	[SerializeField] private Transform _spriteTransform;
+
+	[SerializeField] private int _playerLifePoint = 3;
+	[SerializeField] private float _playerRecoveryTime = 2f;
+
+	private bool _playerRecovery = false;
+
     public float invertx;
     public float inverty;
     public float vitesse;
@@ -33,10 +41,37 @@ public class PlayerController : MonoBehaviour
             if (lookDirection.x > 0 && lookDirection.z < 0) { transform.rotation = Quaternion.Euler(0f, 315, 0f); }
 
 
-
+			if (_spriteTransform)
+			{
+				_spriteTransform.rotation = Quaternion.identity;
+			}
         }
 
         
+	}
+
+	public void AddDamage(int damage)
+	{
+		if (_playerRecovery) return;
+
+		_playerLifePoint -= damage;
+
+		if (_playerLifePoint <= 0)
+		{
+			//TODO
+			//GameOverFunc
+		}
+		else
+		{
+			StartCoroutine("PlayerRecoveryCoroutine");
+		}
+	}
+
+	IEnumerable<WaitForSeconds> PlayerRecoveryCoroutine()
+	{
+		_playerRecovery = true;
+		yield return new WaitForSeconds(_playerRecoveryTime);
+		_playerRecovery = false;
 	}
 
 }
