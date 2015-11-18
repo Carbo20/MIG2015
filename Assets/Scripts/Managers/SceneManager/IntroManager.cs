@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class IntroManager : MonoBehaviour {
+public class IntroManager : MonoBehaviour
+{
+
+	public string musicName;
 
 	public GameObject door1;
 	public GameObject door2;
@@ -19,8 +22,10 @@ public class IntroManager : MonoBehaviour {
 		door2Check = false;
 		door3Check = false;
 		door4Check = false;
+
+		AudioMgr.Instance.PlayMusic(musicName);
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (door1.GetComponent<BoxCollider> ().enabled) {

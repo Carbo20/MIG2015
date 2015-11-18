@@ -21,8 +21,6 @@ public class CandleManager : MonoBehaviour {
 	
 		if (isBlowing) 
 		{
-
-			
 			if(GetComponentInChildren<ParticleSystem>().isStopped)
 			{
 				GetComponentInChildren<ParticleSystem>().Play();

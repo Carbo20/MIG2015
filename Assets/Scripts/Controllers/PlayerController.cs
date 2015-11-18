@@ -23,7 +23,11 @@ public class PlayerController : MonoBehaviour
     public GameObject vision;
 	public SpriteRenderer sprite;
 	public Transform destination;
-	
+
+	public int get_playerLifePoint()
+	{
+		return _playerLifePoint;
+	}
 
 	public void Update()
 	{

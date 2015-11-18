@@ -20,5 +20,7 @@ public class LevelController : MonoBehaviour {
 			}
 
 		//Victory Func
+
+		GameMgr.Instance.LoadLevel(3);
 	}
 }
