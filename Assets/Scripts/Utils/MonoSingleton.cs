@@ -15,12 +15,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 	{
 		get
 		{
-			if (_instance == null)
-			{
-				_instance = FindObjectOfType<T>();
-			}
-
-			return _instance;
+			return FindObjectOfType<T>();
 		}
 	}
 

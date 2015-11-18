@@ -5,11 +5,6 @@ public class GameMgr : MonoSingleton<GameMgr>
 {
 	#region Fields
 
-	[SerializeField] private int _playerLifePoint = 3;
-	[SerializeField] private float _playerRecoveryTime = 2f;
-
-	private bool _playerRecovery = false;
-
 	#endregion
 
 	#region Properties
@@ -42,6 +37,13 @@ public class GameMgr : MonoSingleton<GameMgr>
 			}
 		}
 		isBlowing = false;
+
+		PlayerController player = FindObjectOfType<PlayerController>();
+
+		if (player)
+		{
+			player.OnBlow();
+		}
 	}
 
 	public void OnTalk()
@@ -52,28 +54,14 @@ public class GameMgr : MonoSingleton<GameMgr>
 	{
 	}
 
-	public void AddDamage(int damage)
+	public void GameOver()
 	{
-		if (_playerRecovery) return;
+		GameObject[] gameObjects = FindObjectsOfType<GameObject>();
 
-		_playerLifePoint -= damage;
+		foreach (GameObject go in gameObjects)
+			Destroy(go);
 
-		if (_playerLifePoint <= 0)
-		{
-			//TODO
-			//GameOverFunc
-		}
-		else
-		{
-			StartCoroutine("PlayerRecoveryCoroutine");
-		}
-	}
-
-	IEnumerator PlayerRecoveryCoroutine()
-	{
-		_playerRecovery = true;
-		yield return new WaitForSeconds(_playerRecoveryTime);
-		_playerRecovery = false;
+		Application.LoadLevel(0);
 	}
 
 	#endregion
