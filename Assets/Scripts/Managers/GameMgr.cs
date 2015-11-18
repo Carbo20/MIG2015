@@ -11,6 +11,7 @@ public class GameMgr : MonoSingleton<GameMgr>
 
 	private bool isBlowing;
 	private bool isTalking;
+	private bool isClaping;
 
 	#endregion
 
@@ -50,13 +51,17 @@ public class GameMgr : MonoSingleton<GameMgr>
 	{
 		isTalking = true;
 		if(GameObject.FindGameObjectWithTag("Reaper") != null){
-			//GameObject.FindGameObjectWithTag("Reaper");
+			GameObject.FindGameObjectWithTag("Reaper").GetComponent<ReaperManager>().onTalk();
+		}
+		if (GameObject.Find ("Intro Manager") != null) {
+			GameObject.Find ("Intro Manager") .GetComponent<IntroManager> ().onTalk ();
 		}
 		isTalking = false;
 	}
 
-	public void OnTape()
+	public void OnClap()
 	{
+		isClaping = true;
 	}
 
 	public void GameOver()
@@ -80,6 +85,12 @@ public class GameMgr : MonoSingleton<GameMgr>
 	}
 
 	public bool IsTalking
+	{
+		get{ return isTalking;}
+		set{ isTalking = value;}
+	}
+
+	public bool IsClaping
 	{
 		get{ return isTalking;}
 		set{ isTalking = value;}

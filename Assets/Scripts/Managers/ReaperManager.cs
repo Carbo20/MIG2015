@@ -10,7 +10,7 @@ public class ReaperManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		isActive = false;
+		isActive = true;
 		animator = GetComponent<Animator> ();
 	}
 	
@@ -33,6 +33,7 @@ public class ReaperManager : MonoBehaviour {
 	public void onTalk()
 	{
 		if (isActive) {
+			Debug.Log("REAPER DIE");
 			animator.SetBool("isDead", true);
 		}
 	}
