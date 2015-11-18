@@ -16,7 +16,7 @@ public class TrailLevelController : MonoBehaviour
 	public void Update(){
 		if (FindObjectsOfType<Enemy>().Length == 0) {
 			//victoire
-			Debug.Log ("j'ai fini le niveau");
+			GameMgr.Instance.LoadLevel(3);
 		}
 	}
 }
