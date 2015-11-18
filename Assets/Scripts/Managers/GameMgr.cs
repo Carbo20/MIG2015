@@ -45,7 +45,6 @@ public class GameMgr : MonoSingleton<GameMgr>
 				candle.transform.parent.GetComponent<CandleManager>().onBlow();
 			}
 		}
-		isBlowing = false;
 
 		PlayerController player = FindObjectOfType<PlayerController>();
 
@@ -53,6 +52,12 @@ public class GameMgr : MonoSingleton<GameMgr>
 		{
 			player.OnBlow();
 		}
+
+		if (GameObject.Find ("Intro Manager") != null) {
+			GameObject.Find ("Intro Manager") .GetComponent<IntroManager> ().onBlow ();
+		}
+		
+		isBlowing = false;
 	}
 
 	public void OnTalk()
@@ -73,15 +78,18 @@ public class GameMgr : MonoSingleton<GameMgr>
 		foreach (GameObject ghost in GameObject.FindGameObjectsWithTag("Ghost")) {
 			ghost.GetComponent<Enemy>().OnClap();
 		}
-
+		if (GameObject.Find ("Intro Manager") != null) {
+			GameObject.Find ("Intro Manager") .GetComponent<IntroManager> ().onClap ();
+		}
+		isClaping = false;
 	}
 
 	public void GameOver()
 	{
 		AudioMgr.Instance.PlaySFX ("Beeps_dead");
-
 		StartCoroutine ("GameOverCoroutine");
 	}
+
 
 	IEnumerator GameOverCoroutine()
 	{
