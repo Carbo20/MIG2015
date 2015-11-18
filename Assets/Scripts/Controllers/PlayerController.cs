@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 	[SerializeField] private CharacterController _characterController;
 	[SerializeField] private Transform _spriteTransform;
+	[SerializeField] private NavMeshAgent _agent;
 
 	[SerializeField] private int _playerLifePoint = 3;
 	[SerializeField] private float _playerRecoveryTime = 2f;
@@ -21,6 +22,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 lookDirection = Vector3.zero;
     public GameObject vision;
 	public SpriteRenderer sprite;
+	public Transform destination;
+	
 
 	public void Update()
 	{
@@ -28,31 +31,41 @@ public class PlayerController : MonoBehaviour
 
 		if (_characterController)
 		{
-            moveDirection = new Vector3((invertx) * Input.GetAxis("Horizontal"), 0f,(inverty) * Input.GetAxis("Vertical"));
-            moveDirection *= ratiovitesse;
+			if (!_agent.enabled)
+			{
+	            moveDirection = new Vector3((invertx) * Input.GetAxis("Horizontal"), 0f,(inverty) * Input.GetAxis("Vertical"));
+	            moveDirection *= ratiovitesse;
 
-            if (moveDirection.x > 0 && moveDirection.x != 0) { flip(1); }
-            else { if (moveDirection.x != 0) { flip(-1); } }
+	            if (moveDirection.x > 0 && moveDirection.x != 0) { flip(-1); }
+	            else { if (moveDirection.x != 0) { flip(1); } }
 
-			_characterController.Move(moveDirection);
+				_characterController.Move(moveDirection);
 
-            lookDirection = new Vector3(-1*Input.GetAxis("Horizontal2"), 0f, Input.GetAxis("Vertical2"));
+	            lookDirection = new Vector3(-1*Input.GetAxis("Horizontal2"), 0f, Input.GetAxis("Vertical2"));
 
-            // transform.LookAt(lookDirection);
-            if (lookDirection.x > 0 && lookDirection.z == 0) {transform.rotation= Quaternion.Euler(0f, 0f, 0f); }
-            if (lookDirection.x > 0 && lookDirection.z > 0) { transform.rotation = Quaternion.Euler(0f, 45, 0f); }
-            if (lookDirection.x == 0 && lookDirection.z > 0) { transform.rotation = Quaternion.Euler(0f, 90, 0f); }
-            if (lookDirection.x < 0 && lookDirection.z > 0) { transform.rotation = Quaternion.Euler(0f, 135, 0f); }
-            if (lookDirection.x < 0 && lookDirection.z == 0) { transform.rotation = Quaternion.Euler(0f, 180, 0f); }
-            if (lookDirection.x < 0 && lookDirection.z < 0) { transform.rotation = Quaternion.Euler(0f, 225, 0f); }
-            if (lookDirection.x == 0 && lookDirection.z < 0) { transform.rotation = Quaternion.Euler(0f, 270, 0f); }
-            if (lookDirection.x > 0 && lookDirection.z < 0) { transform.rotation = Quaternion.Euler(0f, 315, 0f); }
-
+	            // transform.LookAt(lookDirection);
+	            if (lookDirection.x > 0 && lookDirection.z == 0) {transform.rotation= Quaternion.Euler(0f, 0f, 0f); }
+	            if (lookDirection.x > 0 && lookDirection.z > 0) { transform.rotation = Quaternion.Euler(0f, 45, 0f); }
+	            if (lookDirection.x == 0 && lookDirection.z > 0) { transform.rotation = Quaternion.Euler(0f, 90, 0f); }
+	            if (lookDirection.x < 0 && lookDirection.z > 0) { transform.rotation = Quaternion.Euler(0f, 135, 0f); }
+	            if (lookDirection.x < 0 && lookDirection.z == 0) { transform.rotation = Quaternion.Euler(0f, 180, 0f); }
+	            if (lookDirection.x < 0 && lookDirection.z < 0) { transform.rotation = Quaternion.Euler(0f, 225, 0f); }
+	            if (lookDirection.x == 0 && lookDirection.z < 0) { transform.rotation = Quaternion.Euler(0f, 270, 0f); }
+	            if (lookDirection.x > 0 && lookDirection.z < 0) { transform.rotation = Quaternion.Euler(0f, 315, 0f); }
+			}
+			else
+			{
+				_agent.destination = destination.position;
+			}
 			if (_spriteTransform)
 			{
 				_spriteTransform.rotation = Quaternion.identity;
 			}
 			sprite.transform.LookAt(Camera.main.transform.position);
+
+		
+			
+
         }
 
 			GameObject fogGO = GameObject.FindGameObjectWithTag("Fog");
@@ -111,15 +124,14 @@ public class PlayerController : MonoBehaviour
 
 	public void AddDamage(int damage)
 	{
-		Debug.Log(_playerRecovery);
-		if (_playerRecovery) return;
+		if (_playerRecovery || _playerLifePoint <= 0) return;
 
 		_playerLifePoint -= damage;
 
+		AudioMgr.Instance.PlaySFX ("Damages");
+
 		if (_playerLifePoint <= 0)
 		{
-			//TODO
-			//GameOverFunc
 			GameMgr.Instance.GameOver();
 		}
 		else

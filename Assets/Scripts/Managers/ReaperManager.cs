@@ -16,17 +16,13 @@ public class ReaperManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		deltaTime += Time.deltaTime;
-		if (deltaTime >= 5) {
-			onAppear();
-			deltaTime = 0;
-		}
 	}
 
 	public void onAppear()
 	{
 		Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
 		transform.position = new Vector3 (playerPosition.x - 1,playerPosition.y,playerPosition.z - 1);
+		AudioMgr.Instance.PlaySFX ("Reaper_Spawn");
 
 	}
 
@@ -40,5 +36,7 @@ public class ReaperManager : MonoBehaviour {
 
 	public void DestroyOnAnimation(){
 		Destroy (gameObject);
+		AudioMgr.Instance.PlaySFX ("Reaper_Disapear");
+		
 	}
 }

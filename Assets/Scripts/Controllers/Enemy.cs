@@ -12,6 +12,11 @@ public class Enemy : MonoBehaviour {
     public float tempsDommage; 
 	// Update is called once per frame
     
+	public void Awake()
+	{
+		player = FindObjectOfType<PlayerController> ().transform;
+	}
+
 	void Update () {
         
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
@@ -26,6 +31,11 @@ public class Enemy : MonoBehaviour {
             {
                
                 playerd.GetComponent<PlayerController>().AddDamage(1);
+				AudioMgr.Instance.PlaySFX("Ghost_Attack Laugh");
+				Debug.Log ("dammage done and ");
+				Destroy(gameObject);
+				//AudioMgr.Instance.PlaySFX("Ghost_Death");
+
             }
             
             if(GetComponent<Animator>().GetInteger("bad") == 0)
@@ -47,7 +57,7 @@ public class Enemy : MonoBehaviour {
         _spriteTransform.localScale = new Vector3(Mathf.Abs(_spriteTransform.localScale.x) * direction, _spriteTransform.localScale.y, _spriteTransform.localScale.z);
     }
 
-    void OnClap()
+    public void OnClap()
     {
         if (etat == 1)//orange
         {
@@ -55,7 +65,7 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    void OnBlow()
+    public void OnBlow()
     {
         if (etat == 2)//red
         {

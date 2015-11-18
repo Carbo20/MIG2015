@@ -1,9 +1,12 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameMgr : MonoSingleton<GameMgr>
 {
 	#region Fields
+
+	public List<int> _roomsFinished;
 
 	#endregion
 
@@ -31,6 +34,11 @@ public class GameMgr : MonoSingleton<GameMgr>
 	public void OnBlow()
 	{
 		isBlowing = true;
+
+		foreach (GameObject ghost in GameObject.FindGameObjectsWithTag("Ghost")) {
+			ghost.GetComponent<Enemy>().OnBlow();
+		}
+
 		foreach (GameObject candle in GameObject.FindGameObjectsWithTag("Candle")) {
 			if(candle.transform.parent.GetComponent<CandleManager>().IsTrigger && !candle.transform.parent.GetComponent<CandleManager>().LightOn) //[TODO] Put the hitbox condition with the player and the candle here !!!
 			{
@@ -62,18 +70,31 @@ public class GameMgr : MonoSingleton<GameMgr>
 	public void OnClap()
 	{
 		isClaping = true;
+		foreach (GameObject ghost in GameObject.FindGameObjectsWithTag("Ghost")) {
+			ghost.GetComponent<Enemy>().OnClap();
+		}
+
 	}
 
 	public void GameOver()
 	{
-		GameObject[] gameObjects = FindObjectsOfType<GameObject>();
+		AudioMgr.Instance.PlaySFX ("Beeps_dead");
 
-		foreach (GameObject go in gameObjects)
-			Destroy(go);
-
-		Application.LoadLevel(0);
+		StartCoroutine ("GameOverCoroutine");
 	}
 
+	IEnumerator GameOverCoroutine()
+	{
+		//yield return new WaitForSeconds (6f);
+		yield return null;
+		
+		GameObject[] gameObjects = FindObjectsOfType<GameObject>();
+		
+		foreach (GameObject go in gameObjects)
+			Destroy(go);
+		
+		Application.LoadLevel(0);
+	}
 	#endregion
 
 	#region Getter Setter 

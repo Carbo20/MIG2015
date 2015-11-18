@@ -21,8 +21,12 @@ public class CandleManager : MonoBehaviour {
 	
 		if (isBlowing) 
 		{
-			if(GetComponentInChildren<ParticleSystem>().isStopped){
-			GetComponentInChildren<ParticleSystem>().Play();
+
+			
+			if(GetComponentInChildren<ParticleSystem>().isStopped)
+			{
+				GetComponentInChildren<ParticleSystem>().Play();
+				AudioMgr.Instance.PlaySFX("Torch_Fire_On");
 			}
 			Light light = GetComponentInChildren<Light> ();
 			if(deltaTime < candleMaxIntensity) {
@@ -33,6 +37,7 @@ public class CandleManager : MonoBehaviour {
 				isBlowing = false;
 				deltaTime = 0f;
 				lightOn = true;
+				gameObject.GetComponent<AudioSource>().Play();
 			}
 		}
 

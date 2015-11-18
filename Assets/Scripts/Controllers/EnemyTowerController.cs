@@ -37,6 +37,8 @@ public class EnemyTowerController : MonoBehaviour
 		{
 			RaycastHit hit;
 
+			Debug.DrawLine(transform.position, collider.transform.position, Color.red);
+
 			if (Physics.Linecast(transform.position, collider.transform.position, out hit))
 			{
 				if (hit.collider.gameObject.tag != "Player") return;
@@ -45,9 +47,8 @@ public class EnemyTowerController : MonoBehaviour
 				{
 					_spotLight.color = Color.red;
 				}
+				collider.gameObject.GetComponent<PlayerController>().AddDamage(1);
 			}
-
-			collider.gameObject.GetComponent<PlayerController>().AddDamage(1);
 		}
 	}
 
