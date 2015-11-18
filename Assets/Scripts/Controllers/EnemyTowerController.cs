@@ -14,10 +14,19 @@ public class EnemyTowerController : MonoBehaviour
 	{
 		if (collider.gameObject.tag == "Player")
 		{
-			if (_spotLight)
+			RaycastHit hit;
+
+			if (Physics.Linecast(transform.position, collider.transform.position, out hit))
 			{
-				_spotLight.color = Color.red;
+				if (hit.collider.gameObject.tag != "Player") return;
+
+				if (_spotLight)
+				{
+					_spotLight.color = Color.red;
+				}
 			}
+
+			collider.gameObject.GetComponent<PlayerController>().AddDamage(1);
 		}
 	}
 
