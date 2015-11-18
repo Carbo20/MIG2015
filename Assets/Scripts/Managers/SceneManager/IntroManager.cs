@@ -78,7 +78,7 @@ public class IntroManager : MonoBehaviour {
 	public void onClap()
 	{
 		if(GameObject.Find("OrangeGhost") == null){
-			Debug.Log("ALLOO");
+			Debug.Log("allo");
 			door3Check = true;
 		}
 	}
