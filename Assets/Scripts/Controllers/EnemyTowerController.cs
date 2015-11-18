@@ -5,10 +5,31 @@ public class EnemyTowerController : MonoBehaviour
 	#region Fields
 
 	[SerializeField] private Light _spotLight;
+	[SerializeField] private GameObject _audioSourceGO;
+
+	private AudioSource _audioSource;
 
 	#endregion
 
 	#region Methods
+
+	public void Awake()
+	{
+		_audioSourceGO.GetComponent<AudioSource>();
+	}
+
+	public void FixedUpdate()
+	{
+		RaycastHit hit;
+
+		LayerMask mask = 1 << LayerMask.NameToLayer("Ground");
+
+		if (Physics.Raycast(_spotLight.transform.position, _spotLight.transform.forward, out hit, 100f, mask))
+		{
+			_audioSourceGO.transform.position = hit.point;
+			_audioSourceGO.transform.Translate(Vector3.forward*2f, Space.Self);
+		}
+	}
 
 	public void OnTriggerEnter(Collider collider)
 	{
